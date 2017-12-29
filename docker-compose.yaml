@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  test:
+    build: .
+    image: money/jenkins/test-app
+    command: [sh, -c, "npm run test-ci"]
