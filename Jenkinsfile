@@ -9,8 +9,7 @@ pipeline {
     stage('Pre-Build') {
       steps {
         echo 'Executing Pre-Build Stage'
-        sh '''node -v
-npm -v
+        sh '''npm -v
 npm prune
 npm install
 npm install gulpjs/gulp#4.0 -g'''
