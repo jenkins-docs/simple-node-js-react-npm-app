@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'NodeJS'
+      label 'master'
     }
     
   }
