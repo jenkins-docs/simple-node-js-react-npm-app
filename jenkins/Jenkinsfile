@@ -1,4 +1,5 @@
-pipeline {
+node {
+    echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
     agent {
         docker {
             image 'node:6-alpine'
