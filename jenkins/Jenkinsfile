@@ -1,10 +1,19 @@
 pipeline {
-    docker.withTools("docker")
+    // docker.withTool("docker")
     agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
-        }
+        kubernetes {
+            //cloud 'kubernetes'
+            label 'mypod'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+containers:
+- name: node
+    image: node:6-alpine
+    command: ['cat']
+    tty: true
+"""
     }
     environment {
         CI = 'true'
