@@ -11,6 +11,8 @@ spec:
   containers:
   - name: node
     image: node:6-alpine
+    command: ['cat']
+    tty: true
 """
         }
     }
