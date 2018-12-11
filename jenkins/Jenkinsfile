@@ -10,7 +10,7 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: node:6-alpine
+    image: node:current
     command: ['cat']
     tty: true
 """
