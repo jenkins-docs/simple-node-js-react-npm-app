@@ -1,36 +1,48 @@
 pipeline {
-    agent any
+    agent none
     environment {
         CI = 'true' 
     }
     stages {
         stage('Build') {
-            steps {
-                parallel(
-                    client: {
-                        echo "This is branch client"
-                        bat '%cd%/client/jenkins/scripts/build.bat'
-                    },
-                    server: {
-                        echo "This is branch server"
-                        bat '%cd%/server/jenkins/scripts/build.bat'
+            // steps {
+                parallel{
+                    stage("Build-Client") {
+                        agent any
+                        steps{
+                            echo "This is branch client"
+                            bat '%cd%/client/jenkins/scripts/build.bat'
+                        }
                     }
-                )
-            }
+                    stage("Build-Server") {
+                        agent any
+                        steps{
+                            echo "This is branch server"
+                            bat '%cd%/server/jenkins/scripts/build.bat'
+                        }
+                    }
+                }
+                    
+            // }
         }
         stage('Test') { 
             steps {
-                bat '%cd%/client/jenkins/scripts/test.bat' 
-                parallel(
-                    client: {
-                        echo "This is branch client"
-                        bat '%cd%/client/jenkins/scripts/test.bat'
-                    },
-                    server: {
-                        echo "This is branch server"
-                        bat '%cd%/server/jenkins/scripts/test.bat'
+                parallel{
+                    stage("Test-Client") {
+                        agent any
+                        steps{
+                            echo "This is branch client"
+                            bat '%cd%/client/jenkins/scripts/test.bat'
+                        }
                     }
-                )
+                    stage("Test-Server") {
+                        agent any
+                        steps{
+                            echo "This is branch server"
+                            bat '%cd%/server/jenkins/scripts/test.bat'
+                        }
+                    }
+                }
             }
         }
         stage('Deliver') {
