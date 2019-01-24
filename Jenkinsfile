@@ -46,6 +46,7 @@ pipeline {
             // }
         }
         stage('Deliver') {
+            agent any
             steps {
                 bat '%cd%/client/jenkins/scripts/delivery.bat'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
