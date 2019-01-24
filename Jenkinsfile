@@ -6,19 +6,33 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat '%cd%/jenkins/scripts/build.bat'
+                parallel(
+                    a: {
+                        echo "This is branch a"
+                        bat '%cd%/client/scripts/build.bat'
+                    },
+                    b: {
+                        echo "This is branch b"
+                        bat '%cd%/server/scripts/build.bat'
+                    }
+                )
+            }
+        }
+        stage('Build-server') {
+            steps {
+                bat '%cd%/client/jenkins/scripts/build.bat'
             }
         }
         stage('Test') { 
             steps {
-                bat '%cd%/jenkins/scripts/test.bat' 
+                bat '%cd%/client/jenkins/scripts/test.bat' 
             }
         }
         stage('Deliver') {
             steps {
-                bat '%cd%/jenkins/scripts/delivery.bat'
+                bat '%cd%/client/jenkins/scripts/delivery.bat'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                bat '%cd%/jenkins/scripts/kill.sh'
+                bat '%cd%/client/jenkins/scripts/kill.sh'
             }
         }
     }
