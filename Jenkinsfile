@@ -7,20 +7,15 @@ pipeline {
         stage('Build') {
             steps {
                 parallel(
-                    a: {
+                    client: {
                         echo "This is branch a"
                         bat '%cd%/client/jenkins/scripts/build.bat'
                     },
-                    b: {
+                    server: {
                         echo "This is branch b"
                         bat '%cd%/server/jenkins/scripts/build.bat'
                     }
                 )
-            }
-        }
-        stage('Build-server') {
-            steps {
-                bat '%cd%/client/jenkins/scripts/build.bat'
             }
         }
         stage('Test') { 
