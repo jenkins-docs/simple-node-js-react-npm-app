@@ -9,11 +9,11 @@ pipeline {
                 parallel(
                     a: {
                         echo "This is branch a"
-                        bat '%cd%/client/scripts/build.bat'
+                        bat '%cd%/client/jenkins/scripts/build.bat'
                     },
                     b: {
                         echo "This is branch b"
-                        bat '%cd%/server/scripts/build.bat'
+                        bat '%cd%/server/jenkins/scripts/build.bat'
                     }
                 )
             }
