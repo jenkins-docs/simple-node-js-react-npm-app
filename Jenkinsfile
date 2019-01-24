@@ -8,11 +8,11 @@ pipeline {
             steps {
                 parallel(
                     client: {
-                        echo "This is branch a"
+                        echo "This is branch client"
                         bat '%cd%/client/jenkins/scripts/build.bat'
                     },
                     server: {
-                        echo "This is branch b"
+                        echo "This is branch server"
                         bat '%cd%/server/jenkins/scripts/build.bat'
                     }
                 )
@@ -21,6 +21,16 @@ pipeline {
         stage('Test') { 
             steps {
                 bat '%cd%/client/jenkins/scripts/test.bat' 
+                parallel(
+                    client: {
+                        echo "This is branch client"
+                        bat '%cd%/client/jenkins/scripts/test.bat'
+                    },
+                    server: {
+                        echo "This is branch server"
+                        bat '%cd%/server/jenkins/scripts/test.bat'
+                    }
+                )
             }
         }
         stage('Deliver') {
