@@ -26,7 +26,7 @@ pipeline {
             // }
         }
         stage('Test') { 
-            steps {
+            // steps {
                 parallel{
                     stage("Test-Client") {
                         agent any
@@ -43,7 +43,7 @@ pipeline {
                         }
                     }
                 }
-            }
+            // }
         }
         stage('Deliver') {
             steps {
