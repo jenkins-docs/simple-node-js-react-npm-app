@@ -18,7 +18,7 @@ pipeline {
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'credentials id', name: 'CREDENTIALS')]
           )
-	  sh "cd tafs"
+	  sh "cd jenkins"
 	  sh "pwd"
 	  DB = db_name
           withCredentials([usernamePassword(credentialsId: credentials_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
