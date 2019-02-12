@@ -18,8 +18,9 @@ pipeline {
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'credentials id', name: 'CREDENTIALS')]
           )
+	  DB = dbname
           withCredentials([usernamePassword(credentialsId: credentials_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh 'mvn liquibase:update -D db_name=$dbname -D username=$USERNAME -D password=$PASSWORD -D conf=short'
+            sh "mvn liquibase:update -D db_name=$DB -D username=$USERNAME -D password=$PASSWORD -D conf=short"
           }
         }
       }
