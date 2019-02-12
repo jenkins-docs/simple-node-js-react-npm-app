@@ -9,7 +9,7 @@ pipeline {
         CI = 'true'
     }
     stages {
-	stage 'Input' {
+	stage('Input') {
 	    steps {
         	def userPasswordInput = input (
 	            id: 'Password',
