@@ -12,12 +12,19 @@ pipeline {
 	stage('Input') {
 	    steps {
 		script {
-		       	def userPasswordInput = input (
-		            message: 'input your password: ',
-		            ok: 'ok',
-		            parameters: [string(defaultValue: '', description: '.....', name: 'LIB_TEST')]
+		       	def db_name = input (
+		            message: 'Input DB name: ',
+		            ok: 'Submit',
 		        )
-		        echo ("Password was: " + userPasswordInput)
+			def username = input (
+                            message: 'Input username: ',
+                            ok: 'Submit',
+                        )
+			def password = input (
+                            message: 'Input password: ',
+                            ok: 'Submit',
+                        )
+		        echo ("DB: " + db_name + " username: " + username + " password: " + password)
 		}
 	    }
 	}
