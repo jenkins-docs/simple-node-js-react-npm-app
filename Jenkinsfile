@@ -15,14 +15,17 @@ pipeline {
 		       	def db_name = input (
 		            message: 'Input DB name: ',
 		            ok: 'Submit',
+			    parameters: [string(defaultValue: '', description: '.....', name: 'DB')]
 		        )
 			def username = input (
                             message: 'Input username: ',
                             ok: 'Submit',
+			    parameters: [string(defaultValue: '', description: '.....', name: 'USERNAME')]
                         )
 			def password = input (
                             message: 'Input password: ',
                             ok: 'Submit',
+			    parameters: [string(defaultValue: '', description: '.....', name: 'PASSWORD')]
                         )
 		        echo ("DB: " + db_name + " username: " + username + " password: " + password)
 		}
