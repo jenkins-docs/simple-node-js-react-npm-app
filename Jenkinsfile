@@ -29,7 +29,7 @@ stages {
     stage('Deploy') {
       steps {
         script {
-          withCredentials([usernamePassword(credentialsId: ${CREDENTIALS}, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "mvn liquibase:update -D url=46.4.202.170:5432 -D db_name=${DATABASE} -D username=$USERNAME -D password=$PASSWORD -D conf=$CONFIGt -f tafs/pom.xml"
           }
         }
