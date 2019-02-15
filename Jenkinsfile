@@ -8,7 +8,7 @@ stages {
     stage('Input') {
       steps {
         script {
-          def env.DATABASE = input (
+          env.DATABASE = input (
             message: 'Input DB name: ',
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'target database', name: 'DB')]
