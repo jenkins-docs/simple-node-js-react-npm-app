@@ -4,25 +4,33 @@ pipeline {
 	image 'node:6-alpine'
     }
   }
-  stages {
-    stage('Launch') {
+stages {
+    stage('Input') {
       steps {
         script {
-          def db_name = input (
+          def env.DATABASE = input (
             message: 'Input DB name: ',
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'target database', name: 'DB')]
           )
-          def credentials_id = input (
+          env.CREDENTIALS = input (
             message: 'Input username: ',
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'credentials id', name: 'CREDENTIALS')]
           )
-	  sh "cd jenkins"
-	  sh "pwd"
-	  DB = db_name
-          withCredentials([usernamePassword(credentialsId: credentials_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "mvn liquibase:update -D db_name=$DB -D username=$USERNAME -D password=$PASSWORD -D conf=short"
+          env.CONFIG = input (
+            message: 'Configuration',
+            ok: 'Submit',
+            parameters: [choice(name: 'Configuration to deploy', choices: "full\nshort", description: 'What configuration you want to deploy?')]
+          )
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        script {
+          withCredentials([usernamePassword(credentialsId: ${CREDENTIALS}, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            sh "mvn liquibase:update -D url=46.4.202.170:5432 -D db_name=${DATABASE} -D username=$USERNAME -D password=$PASSWORD -D conf=$CONFIGt -f tafs/pom.xml"
           }
         }
       }
