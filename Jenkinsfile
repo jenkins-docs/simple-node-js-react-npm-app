@@ -8,6 +8,7 @@ pipeline {
     stage('Input') {
       steps {
         script {
+	  echo User.current()
           env.DATABASE = input (
             message: 'Input DB name: ',
             ok: 'Submit',
