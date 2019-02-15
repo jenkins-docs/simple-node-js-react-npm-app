@@ -4,7 +4,7 @@ pipeline {
 	image 'node:6-alpine'
     }
   }
-stages {
+  stages {
     stage('Input') {
       steps {
         script {
@@ -18,11 +18,11 @@ stages {
             ok: 'Submit',
             parameters: [string(defaultValue: '', description: 'credentials id', name: 'CREDENTIALS')]
           )
-          env.CONFIG = input (
+          /*env.CONFIG = input (
             message: 'Configuration',
             ok: 'Submit',
-            parameters: [choice(name: 'Configuration to deploy', choices: "full\nshort", description: 'What configuration you want to deploy?')]
-          )
+            parameters: [choice(name: 'Configuration to deploy', choices: "short\nfull", description: 'What configuration you want to deploy?')]
+          )*/
         }
       }
     }
@@ -30,7 +30,7 @@ stages {
       steps {
         script {
           withCredentials([usernamePassword(credentialsId: CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "mvn liquibase:update -D url=46.4.202.170:5432 -D db_name=${DATABASE} -D username=$USERNAME -D password=$PASSWORD -D conf=${CONFIG} -f tafs/pom.xml"
+            sh "mvn liquibase:update -D url=46.4.202.170:5432 -D db_name=${DATABASE} -D username=$USERNAME -D password=$PASSWORD -D conf=short -f tafs/pom.xml"
           }
         }
       }
