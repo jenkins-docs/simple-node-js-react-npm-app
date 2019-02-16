@@ -12,7 +12,10 @@ pipeline {
 	  env.USERJENKINS = Jenkins.getAuthentication().getName()
 	  sh "echo ${USERNAME}"
 	  sh "echo ${USERJENKINS}"
-	  sh "echo ${BUILD_USER}"
+	  wrap([$class: 'BuildUser']) {
+	    def user = env.BUILD_USER_ID
+	    sh "echo ${user}"
+	  }
         }
       }
     }
