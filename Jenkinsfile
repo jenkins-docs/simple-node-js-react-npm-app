@@ -10,8 +10,9 @@ pipeline {
         script {
 	  env.USERNAME = User.current().getId()
 	  env.USERJENKINS = Jenkins.getAuthentication().getName()
-	  sh "echo User.current().getId() ${USERNAME}"
-	  sh "Jenkins.getAuthentication().getName() ${USERJENKINS}"
+	  sh "echo ${USERNAME}"
+	  sh "echo ${USERJENKINS}"
+	  sh "echo ${BUILD_USER}"
         }
       }
     }
