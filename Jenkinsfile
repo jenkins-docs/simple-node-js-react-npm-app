@@ -5,16 +5,10 @@ pipeline {
     }
   }
   stages {
-    stage('Input') {
+    stage('Test') {
       steps {
         script {
-	  env.USERNAME = User.current()
-        }
-      }
-    }
-    stage('Deploy') {
-      steps {
-        script {
+	  env.USERNAME = User.current().getId()
 	  sh "echo ${USERNAME}"
         }
       }
