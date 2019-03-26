@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  node_docker_meetup_react_app:
+    image: node:10-alpine
+    ports:
+      - "3000:3000"
+    environment:
+      - DEBUG=myapp:*
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    command: /bin/sh -c "npm install && npm start"
