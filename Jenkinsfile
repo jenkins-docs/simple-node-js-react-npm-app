@@ -25,10 +25,9 @@ pipeline {
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
             }
         }
-        stage('Push') {
-            steps {
-                sh './jenkins/scripts/push.sh'
-            }
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'alexislopes', passwordVariable: '1234']]) {
+            sh("git tag -a some_tag -m 'Jenkins'")
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
         }
     }
    
