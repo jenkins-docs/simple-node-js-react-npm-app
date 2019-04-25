@@ -26,8 +26,10 @@ pipeline {
             }
         }
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'alexislopes', passwordVariable: '1234']]) {
-            sh("git tag -a some_tag -m 'Jenkins'")
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@prod-test --tags')
+            steps{
+                sh("git tag -a some_tag -m 'Jenkins'")
+                sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@prod-test --tags')
+            }
         }
     }
    
