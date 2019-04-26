@@ -25,7 +25,13 @@ pipeline {
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
             }
         }
-       
+       stage('Publish') {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: , usernameVariable: 'alexislopes', passwordVariable: '1234']]) {
+                    sh('git push https://${GIT_AUTHOR_NAME}:${GIT_PASSWORD}@simple-node-js-react-npm-app.git  --tags -f --no-verify')
+                }
+            }
+        }
     }
    
 }
