@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh './jenkins/scripts/test.sh'
             }
-            
+
         }
         stage('Deliver') {
             steps {
@@ -29,7 +29,7 @@ pipeline {
         stage('Publish') {
             steps {
                 withCredentials([string(credentialsId: 'jenkins-token', variable: '897b41466da6e701cafe8f5e36555488769cc237')]) {
-                    sh('git merge prod')
+                    sh('git merge origin/prod')
                 }
             }
         }
