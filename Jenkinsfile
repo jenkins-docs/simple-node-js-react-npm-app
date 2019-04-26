@@ -27,7 +27,7 @@ pipeline {
         }
        stage('Publish') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', usernameVariable: 'alexislopes', passwordVariable: '1234']]) {
+                withCredentials([string(credentialsId: 'jenkins', variable: '897b41466da6e701cafe8f5e36555488769cc237')]) {
                     sh('git push https://${GIT_AUTHOR_NAME}:${GIT_PASSWORD}@simple-node-js-react-npm-app.git  --tags -f --no-verify')
                 }
             }
