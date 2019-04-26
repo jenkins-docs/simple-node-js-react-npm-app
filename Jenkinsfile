@@ -28,7 +28,7 @@ pipeline {
        stage('Publish') {
             steps {
                 withCredentials([string(credentialsId: 'jenkins-token', variable: '897b41466da6e701cafe8f5e36555488769cc237')]) {
-                    sh('git push origin prod')
+                    sh('/usr/bin/git push origin prod')
                 }
             }
         }
