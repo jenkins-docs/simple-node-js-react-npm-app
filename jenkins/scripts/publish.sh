@@ -5,4 +5,4 @@ git branch
 
 git merge origin/development
 
-git push -u origin prod
+git push origin prod
