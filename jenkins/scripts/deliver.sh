@@ -22,7 +22,7 @@ npm start &
 sleep 1
 echo $! > .pidfile
 set +x
-
+git branch
 echo 'Now...'
 echo 'Visit http://nexusbr.dyndns-ip.com:9091 to see your Node.js/React application in action.'
 echo '(This is why you specified the "args ''-p 3000:3000''" parameter when you'
