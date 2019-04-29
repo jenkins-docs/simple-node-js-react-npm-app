@@ -2,7 +2,7 @@ echo 'Nesta etapa o Jenkins irá publicar o código na branch "prod" do reposit�
 
 set -x
 
-git checkout prod
+git checkout confirmado
 
 git branch
 
