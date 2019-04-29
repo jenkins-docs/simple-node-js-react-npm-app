@@ -4,4 +4,5 @@ set -x
 echo $"push from Jenkins" >> "./pushes.log"
 git add .
 git commit -m "pushed from jenkins"
-git merge origin/prod
+git checkout prod
+git merge origin/development
