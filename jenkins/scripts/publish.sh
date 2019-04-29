@@ -2,6 +2,6 @@ echo 'Nesta etapa o Jenkins irá publicar o código na branch "prod" do reposit�
 
 set -x
 git add .
-git commit -m "pushed from jenkins"
+git branch
 git checkout prod
 git merge origin/development
