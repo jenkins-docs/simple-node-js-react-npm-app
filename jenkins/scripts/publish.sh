@@ -4,3 +4,5 @@ set -x
 git branch
 
 git merge origin/development
+
+git push origin prod
