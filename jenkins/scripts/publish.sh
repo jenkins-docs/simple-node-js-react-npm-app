@@ -2,4 +2,4 @@ echo 'Nesta etapa o Jenkins irá publicar o código na branch "prod" do reposit�
 
 set -x
 git branch
-git merge development
+git merge origin/development
