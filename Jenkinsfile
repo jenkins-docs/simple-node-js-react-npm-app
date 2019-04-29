@@ -30,8 +30,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'jenkins-token', variable: '897b41466da6e701cafe8f5e36555488769cc237')]) {
                     sh('git merge origin/prod')
-                }
-                
+                } 
             }
         }
     }
