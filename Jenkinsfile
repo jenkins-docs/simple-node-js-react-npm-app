@@ -11,9 +11,17 @@ pipeline {
                 sh 'echo "HELLOi WORLD!!!"'
             }
         }
-        stage('Test') {
+    }
+
+    stage('Test') {
+        steps {
+            sh 'echo "HELLOi WORLD!!!"'
         }
-        stage('Deliver') {
+    }
+
+    stage('Deliver') {
+        steps {
+            sh 'echo "HELLOi WORLD!!!"'
         }
     }
 }
