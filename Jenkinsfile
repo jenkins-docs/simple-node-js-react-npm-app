@@ -14,13 +14,13 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'echo "HELLO WORLD!!!"'
+                sh 'ls -l'
             }
         }
 
-        stage('Deliver') {
+        stage('Deploy') {
             steps {
-                sh 'echo "HELLO WORLD!!!"'
+                sh 'echo "DEPLOY!!!"'
             }
         }
     }
