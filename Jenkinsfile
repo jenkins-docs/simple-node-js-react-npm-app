@@ -9,9 +9,11 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'ls -l'
         sh 'printenv'
-        sh 'echo $BRANCH_NAME'
+        sh 'echo'
+        sh 'echo ********'
+        sh 'echo "* BRANCH: ${BRANCH_NAME}"'
+        sh 'echo ********'
       }
     }
 
