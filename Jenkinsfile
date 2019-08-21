@@ -11,6 +11,7 @@ pipeline {
       steps {
         sh 'ls -l'
         sh 'printenv'
+        sh 'echo $BRANCH_NAME'
       }
     }
 
