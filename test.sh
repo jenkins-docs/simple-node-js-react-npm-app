@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-echo 'test'
 set -x
-npm -v
+aws --version
 set +x
 
