@@ -10,6 +10,7 @@ pipeline {
     stage('Test') {
       steps {
         sh 'ls -l'
+        sh 'printenv'
       }
     }
 
