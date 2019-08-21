@@ -11,9 +11,9 @@ pipeline {
       steps {
         sh 'printenv'
         sh 'echo'
-        sh 'echo ********'
+        sh 'echo "********"'
         sh 'echo "* BRANCH: ${BRANCH_NAME}"'
-        sh 'echo ********'
+        sh 'echo "********"'
       }
     }
 
