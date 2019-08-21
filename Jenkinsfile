@@ -8,19 +8,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo "HELLOi WORLD!!!"'
+                sh 'echo "HELLO WORLD!!!"'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'echo "HELLOi WORLD!!!"'
+                sh 'echo "HELLO WORLD!!!"'
             }
         }
 
         stage('Deliver') {
             steps {
-                sh 'echo "HELLOi WORLD!!!"'
+                sh 'echo "HELLO WORLD!!!"'
             }
         }
     }
