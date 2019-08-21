@@ -1,6 +1,10 @@
 pipeline {
   agent any
   
+  environment {
+    AWS_DEFAULT_REGION = "eu-west-2"
+  }
+ 
   stages {
     stage('Build') {
       steps {
@@ -10,10 +14,8 @@ pipeline {
     stage('Test') {
       steps {
         sh 'printenv'
-        sh 'echo'
-        sh 'echo "********"'
-        sh 'echo "* BRANCH: ${BRANCH_NAME}"'
-        sh 'echo "********"'
+        sh 'echo "BRANCH: ${BRANCH_NAME}"'
+        sh 'echo $AWS_DEFAULT_REGION' 
       }
     }
 
