@@ -1,28 +1,26 @@
 pipeline {
-    agent any
-    
-    environment {
-        CI = 'true'
+  agent any
+  
+  tools {nodejs "node-11.10.0"}
+
+
+  stages {
+    stage('Build') {
+      steps {
+        sh 'echo "HELLO WORLD!!!"'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'ls -l'
+      }
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                sh 'echo "HELLO WORLD!!!"'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'ls -l'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh './test.sh'
-            }
-        }
+    stage('Deploy') {
+      steps {
+        sh './test.sh'
+      }
     }
+  }
 }
 
