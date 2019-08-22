@@ -1,6 +1,10 @@
 pipeline {
   agent any
   
+  options {
+    timestamps()
+  }
+
   environment {
     AWS_DEFAULT_REGION = "eu-west-1"
   }
