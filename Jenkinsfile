@@ -16,11 +16,13 @@ pipeline {
         checkout scm
       }
     }
+
     stage('Build') {
       steps {
         sh 'echo "HELLO WORLD!!!"'
       }
     }
+
     stage('Test') {
       steps {
         sh 'printenv'
