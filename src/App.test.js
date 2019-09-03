@@ -12,3 +12,32 @@ it('renders without crashing and having idiots', () => {
   ReactDOM.render(<App />, div);
   expect(div.innerHTML.includes('Idiots')).toBeTruthy()
 });
+
+/**
+ * pipeline {
+    agent {
+        docker {
+            image 'node:10-alpine'
+            args '-p 3000:3000'
+        }
+    }
+    stages {
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'CI=true npm test'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+    }
+}
+ **/
