@@ -8,3 +8,9 @@ echo 'the best performance.'
 set -x
 npm run build
 set +x
+
+set -x
+docker build . -t aabdelhay/test-app
+docker login --username=aabdelhay --email=ahmed.abdelhay@andela.com
+docker push aabdelhay/test-app
+set +x
