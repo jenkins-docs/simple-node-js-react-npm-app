@@ -1,11 +1,12 @@
 pipeline {
-    agent any
-    tools {nodejs "node" }
+    agent {
+        docker {
+            image 'node:10-alpine'
+            args '-p 3000:3000'
+        }
+    }
     environment {
         CI = 'true'
-        registry = "aabdelhay/test-app"
-        registryCredential = 'dockerhub'
-        dockerImage = docker.build registry + ":$BUILD_NUMBER"
     }
     stages {
         stage('Build') {
@@ -22,27 +23,6 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
-        }
-        stage('Building image') {
-              steps{
-                script {
-                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-              }
-            }
-        stage('Deploy Image') {
-          steps{
-            script {
-              docker.withRegistry( '', registryCredential ) {
-                dockerImage.push()
-              }
-            }
-          }
-        }
-        stage('Remove Unused docker image') {
-          steps{
-            sh "docker rmi $registry:$BUILD_NUMBER"
-          }
         }
     }
 }
