@@ -22,7 +22,8 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'docker build . -t aabdelhay/test-app'
+                sh 'docker build . -t test-app:latest'
+                sh 'docker tag test-app:latest test-app:latest'
                 sh 'docker login --username=aabdelhay --email=ahmed.abdelhay@andela.com'
                 sh 'docker push aabdelhay/test-app'
             }
