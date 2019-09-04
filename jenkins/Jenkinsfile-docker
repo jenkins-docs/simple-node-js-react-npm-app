@@ -33,7 +33,6 @@ pipeline {
                         echo 'Pushing to Docker Hub'
                         dockerImage.push()
                     }
-          }
         }
       }
     }
