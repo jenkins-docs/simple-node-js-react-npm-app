@@ -43,17 +43,20 @@ pipeline {
   stages {
     stage('Install') {
        steps {
+       updateGithubCommitStatus(currentBuild)
          sh 'npm install'
        }
     }
     stage('Test') {
       steps {
+      updateGithubCommitStatus(currentBuild)
         sh 'npm test'
       }
     }
     stage('Build image') {
       steps{
         script {
+        updateGithubCommitStatus(currentBuild)
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
@@ -61,6 +64,7 @@ pipeline {
     stage('Publish Image') {
       steps{
          script {
+         updateGithubCommitStatus(currentBuild)
             docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-cred') {
                   dockerImage.push()
                 }
@@ -70,6 +74,7 @@ pipeline {
     stage('Clean up'){
         steps {
             script {
+            updateGithubCommitStatus(currentBuild)
                 sh 'docker rmi -f aabdelhay/test-app:$BUILD_NUMBER'
             }
         }
@@ -77,10 +82,10 @@ pipeline {
   }
   post {
           success {
-            updateGithubCommitStatus description: 'Build Done'
+            updateGithubCommitStatus(currentBuild)
           }
           failure {
-            updateGithubCommitStatus description: 'Build Failed'
+            updateGithubCommitStatus(currentBuild)
           }
   }
 }
