@@ -23,6 +23,7 @@ def updateGithubCommitStatus(build) {
       results: [
         [$class: 'BetterThanOrEqualBuildResult', result: 'SUCCESS', state: 'SUCCESS', message: build.description],
         [$class: 'BetterThanOrEqualBuildResult', result: 'FAILURE', state: 'FAILURE', message: build.description],
+        [$class: 'BetterThanOrEqualBuildResult', result: 'PENDING', state: 'PENDING', message: build.description],
         [$class: 'AnyBuildResult', state: 'FAILURE', message: 'Loophole']
       ]
     ]
@@ -40,19 +41,22 @@ pipeline {
   agent any
   tools {nodejs "node"}
   stages {
-    stage('Build') {
+    stage('Install') {
        steps {
+         updateGithubCommitStatus description: 'Install'
          sh 'npm install'
        }
     }
     stage('Test') {
       steps {
+        updateGithubCommitStatus description: 'Test'
         sh 'npm test'
       }
     }
     stage('Build image') {
       steps{
         script {
+          updateGithubCommitStatus description: 'Build Image'
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
@@ -60,6 +64,7 @@ pipeline {
     stage('Publish Image') {
       steps{
          script {
+            updateGithubCommitStatus description: 'Publish Image'
             docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-cred') {
                   dockerImage.push()
                 }
@@ -69,6 +74,7 @@ pipeline {
     stage('Clean up'){
         steps {
             script {
+                updateGithubCommitStatus description: 'Clean up'
                 sh 'docker rmi -f aabdelhay/test-app:$BUILD_NUMBER'
             }
         }
@@ -76,10 +82,10 @@ pipeline {
   }
   post {
           success {
-                updateGithubCommitStatus name: 'Publish Image', description: 'success'
+                updateGithubCommitStatus description: 'Build Done'
           }
           failure {
-            updateGithubCommitStatus name: 'Publish Image', description: 'failed'
+            updateGithubCommitStatus description: 'Build Failed'
           }
   }
 }
