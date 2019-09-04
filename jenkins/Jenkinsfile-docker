@@ -28,7 +28,7 @@ pipeline {
     stage('Publish Image') {
       steps{
          script {
-            withCredentials([credentialsId: 'docker-cred', url='']) {
+            withCredentials([credentialsId: 'docker-cred']) {
                         echo 'Pushing to Docker Hub'
                         dockerImage.push()
                     }
