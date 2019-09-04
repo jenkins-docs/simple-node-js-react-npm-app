@@ -38,6 +38,12 @@ pipeline {
          sh 'npm install'
        }
     }
+    stage('Lint') {
+      steps {
+      updateGithubCommitStatus(currentBuild)
+        sh 'npm run lint'
+      }
+    }
     stage('Test') {
       steps {
       updateGithubCommitStatus(currentBuild)
