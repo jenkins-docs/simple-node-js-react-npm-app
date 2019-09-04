@@ -24,7 +24,6 @@ def updateGithubCommitStatus(build) {
         [$class: 'BetterThanOrEqualBuildResult', result: 'SUCCESS', state: 'SUCCESS', message: build.description],
         [$class: 'BetterThanOrEqualBuildResult', result: 'PENDING', state: 'PENDING', message: build.description],
         [$class: 'BetterThanOrEqualBuildResult', result: 'FAILURE', state: 'FAILURE', message: build.description],
-        [$class: 'AnyBuildResult', state: 'FAILURE', message: 'Loophole']
       ]
     ]
   ])
