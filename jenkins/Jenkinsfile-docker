@@ -25,11 +25,14 @@ pipeline {
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Publish Image') {
       steps{
          script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+            withCredentials([zip(credentialsId: 'docker-config',
+                                              variable: 'DOCKER_CONFIG')]) {
+                        echo 'Pushing to Docker Hub'
+                        dockerImage.push()
+                    }
           }
         }
       }
