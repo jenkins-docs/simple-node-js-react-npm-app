@@ -12,10 +12,6 @@
       "pretty-quick --staged",
       "eslint src/ --fix",
       "git add"
-    ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
-      "git add"
     ]
   },
   "scripts": {
