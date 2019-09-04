@@ -37,7 +37,7 @@ pipeline {
     stage('Clean up'){
         steps {
             script {
-                dockerImage.remove()
+                sh 'docker rmi aabdelhay/test-app:$BUILD_NUMBER'
             }
         }
     }
