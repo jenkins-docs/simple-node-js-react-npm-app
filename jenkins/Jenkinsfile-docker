@@ -68,6 +68,16 @@ pipeline {
         }
       }
     }
+    stage('Deploy'){
+        steps{
+            script{
+                sh 'sudo ssh -i google_compute_engine admin@35.222.31.141'
+                sh 'docker pull aabdelhay/test-app:$BUILD_NUMBER'
+                sh 'docker run -d -p 80:80 aabdelhay/test-app:$BUILD_NUMBER'
+                sh 'exit'
+            }
+        }
+    }
     stage('Clean up'){
         steps {
             script {

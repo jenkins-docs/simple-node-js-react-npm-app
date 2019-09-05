@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "check-dup": "jsinspect ./src/ || true"
   },
   "devDependencies": {
     "eslint": "^6.3.0",
@@ -31,6 +32,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.5",
+    "jsinspect": "^0.12.7",
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1"
