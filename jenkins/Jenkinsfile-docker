@@ -1,3 +1,6 @@
+def getGitBranchName() {
+    return scm.branches[0].name
+}
 def getRepoURL() {
   sh "git config --get remote.origin.url > .git/remote-url"
   return readFile(".git/remote-url").trim()
@@ -27,6 +30,7 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
+    BRANCH_NAME = getGitBranchName()
     CI='true'
   }
   agent any
