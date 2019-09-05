@@ -61,9 +61,7 @@ pipeline {
     stage('Deploy'){
         steps{
             script{
-                sh 'docker stop $(docker ps -q)'
-                sh 'docker rm $(docker ps -q)'
-                sh 'docker rmi -f $(docker images registry-1.docker.io/aabdelhay/test-app -q)'
+                sh './jenkins/scripts/clean-docker.sh'
                 sh 'docker run -d -p 80:80 aabdelhay/test-app:$BUILD_NUMBER'
             }
         }
