@@ -10,5 +10,5 @@ it('renders without crashing', () => {
 it('renders without crashing and having idiots', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
-  expect(div.innerHTML.includes('Welcome')).toBeTruthy();
+  expect(div.innerHTML.includes('Welcom')).toBeTruthy();
 });
