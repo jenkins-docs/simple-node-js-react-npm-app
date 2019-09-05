@@ -51,6 +51,9 @@ pipeline {
       }
     }
     stage('Build image') {
+      when {
+        branch 'master'
+      }
       steps{
         script {
         updateGithubCommitStatus(currentBuild)
@@ -59,6 +62,9 @@ pipeline {
       }
     }
     stage('Clean up'){
+        when {
+            branch 'master'
+          }
         steps {
             script {
                 updateGithubCommitStatus(currentBuild)
@@ -67,6 +73,9 @@ pipeline {
         }
     }
     stage('Deploy'){
+        when {
+                branch 'master'
+              }
         steps{
             script{
                 sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
