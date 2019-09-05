@@ -58,22 +58,22 @@ pipeline {
         }
       }
     }
-    stage('Deploy'){
-        steps{
-            script{
-                sh './jenkins/scripts/clean-docker.sh'
-                sh 'docker run -d -p 80:80 aabdelhay/test-app:$BUILD_NUMBER'
-            }
-        }
-    }
     stage('Clean up'){
         steps {
             script {
-            updateGithubCommitStatus(currentBuild)
-                sh 'docker rmi -f aabdelhay/test-app:$BUILD_NUMBER'
+                updateGithubCommitStatus(currentBuild)
+                sh './jenkins/scripts/clean-docker.sh'
             }
         }
     }
+    stage('Deploy'){
+        steps{
+            script{
+                sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
+            }
+        }
+    }
+
   }
   post {
           success {
