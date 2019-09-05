@@ -51,32 +51,32 @@ pipeline {
       }
     }
     stage('Build image') {
+      when {
+        branch 'master'
+      }
       steps{
         script {
-          if (env.BRANCH_NAME == 'master'){
-            updateGithubCommitStatus(currentBuild)
-            dockerImage = docker.build registry + ":$BUILD_NUMBER"
-          }
+          updateGithubCommitStatus(currentBuild)
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
     stage('Clean up'){
+        when {
+            branch 'master'
+          }
         steps {
             script {
-                if (env.BRANCH_NAME == 'master'){
-                    updateGithubCommitStatus(currentBuild)
-                    sh './jenkins/scripts/clean-docker.sh'
-                }
+                updateGithubCommitStatus(currentBuild)
+                sh './jenkins/scripts/clean-docker.sh'
             }
         }
     }
     stage('Deploy'){
         steps{
             script{
-                if (env.BRANCH_NAME == 'master'){
-                    updateGithubCommitStatus(currentBuild)
-                    sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
-                }
+                updateGithubCommitStatus(currentBuild)
+                sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
             }
         }
     }
