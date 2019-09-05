@@ -38,7 +38,7 @@ pipeline {
   stages {
     stage('Install') {
        steps {
-       updateGithubCommitStatus(currentBuild)
+         updateGithubCommitStatus(currentBuild)
          echo '$BRANCH_NAME'
          sh 'npm install'
        }
@@ -57,7 +57,7 @@ pipeline {
     }
     stage('Build image and Deploy') {
       when {
-        expression { GIT_BRANCH ==~ /(master)/ }
+        expression { BRANCH_NAME ==~ /(master)/ }
       }
       steps{
         script {
