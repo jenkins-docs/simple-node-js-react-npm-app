@@ -47,7 +47,6 @@ pipeline {
     stage('Test') {
       steps {
         updateGithubCommitStatus(currentBuild)
-        echo "$branch_name"
         sh 'npm test'
       }
     }
