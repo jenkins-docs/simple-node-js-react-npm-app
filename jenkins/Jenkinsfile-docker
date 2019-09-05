@@ -38,6 +38,12 @@ pipeline {
          sh 'npm install'
        }
     }
+    stage('Lint') {
+      steps {
+      updateGithubCommitStatus(currentBuild)
+        sh 'npm run lint'
+      }
+    }
     stage('Test') {
       steps {
       updateGithubCommitStatus(currentBuild)
@@ -52,24 +58,22 @@ pipeline {
         }
       }
     }
-    stage('Publish Image') {
-      steps{
-         script {
-         updateGithubCommitStatus(currentBuild)
-            docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-cred') {
-                  dockerImage.push()
-                }
-        }
-      }
-    }
     stage('Clean up'){
         steps {
             script {
-            updateGithubCommitStatus(currentBuild)
-                sh 'docker rmi -f aabdelhay/test-app:$BUILD_NUMBER'
+                updateGithubCommitStatus(currentBuild)
+                sh './jenkins/scripts/clean-docker.sh'
             }
         }
     }
+    stage('Deploy'){
+        steps{
+            script{
+                sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
+            }
+        }
+    }
+
   }
   post {
           success {
