@@ -53,7 +53,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          if (ev.BRANCH_NAME == 'master'){
+          if (env.BRANCH_NAME == 'master'){
             updateGithubCommitStatus(currentBuild)
             dockerImage = docker.build registry + ":$BUILD_NUMBER"
           }
@@ -63,7 +63,7 @@ pipeline {
     stage('Clean up'){
         steps {
             script {
-                if (ev.BRANCH_NAME == 'master'){
+                if (env.BRANCH_NAME == 'master'){
                     updateGithubCommitStatus(currentBuild)
                     sh './jenkins/scripts/clean-docker.sh'
                 }
@@ -73,7 +73,7 @@ pipeline {
     stage('Deploy'){
         steps{
             script{
-                if (ev.BRANCH_NAME == 'master'){
+                if (env.BRANCH_NAME == 'master'){
                     updateGithubCommitStatus(currentBuild)
                     sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
                 }
