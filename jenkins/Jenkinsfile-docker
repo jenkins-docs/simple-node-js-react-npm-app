@@ -27,7 +27,7 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = env.BRANCH_NAME
+    branch_name = BRANCH_NAME
     CI='true'
   }
   agent any
