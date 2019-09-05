@@ -27,7 +27,7 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = GIT_BRANCH
+    branch_name = '$GIT_BRANCH'
     CI='true'
   }
   agent any
@@ -54,7 +54,7 @@ pipeline {
     }
     stage('Build image and Deploy') {
       when {
-        expression { GIT_BRANCH ==~ /(master)/ }
+        expression { branch_name ==~ /(master)/ }
       }
       steps{
         script {
