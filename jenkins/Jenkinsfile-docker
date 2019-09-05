@@ -58,20 +58,12 @@ pipeline {
         }
       }
     }
-    stage('Publish Image') {
-      steps{
-         script {
-         updateGithubCommitStatus(currentBuild)
-            docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-cred') {
-                  dockerImage.push()
-                }
-        }
-      }
-    }
     stage('Deploy'){
         steps{
             script{
-                sh 'docker pull aabdelhay/test-app:$BUILD_NUMBER'
+                sh 'docker stop $(docker ps -q)'
+                sh 'docker rm $(docker ps -q)'
+                sh 'docker rmi -f $(docker images registry-1.docker.io/aabdelhay/test-app -q)'
                 sh 'docker run -d -p 80:80 aabdelhay/test-app:$BUILD_NUMBER'
             }
         }
