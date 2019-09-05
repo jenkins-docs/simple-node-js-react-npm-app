@@ -54,7 +54,7 @@ pipeline {
       steps{
         script {
         updateGithubCommitStatus(currentBuild)
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$BRANCH_NAME-$BUILD_NUMBER"
         }
       }
     }
@@ -72,7 +72,7 @@ pipeline {
         steps{
             script{
                 sh 'docker pull aabdelhay/test-app:$BUILD_NUMBER'
-                sh 'docker run -d -p 80:80 aabdelhay/test-app:$BUILD_NUMBER'
+                sh 'docker run -d -p 80:80 aabdelhay/test-app:$BRANCH_NAME-$BUILD_NUMBER'
             }
         }
     }
