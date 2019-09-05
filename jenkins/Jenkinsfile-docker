@@ -46,40 +46,37 @@ pipeline {
     }
     stage('Test') {
       steps {
-      updateGithubCommitStatus(currentBuild)
+        updateGithubCommitStatus(currentBuild)
         sh 'npm test'
       }
     }
     stage('Build image') {
-      when {
-        branch 'master'
-      }
       steps{
         script {
-        updateGithubCommitStatus(currentBuild)
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          if (ev.BRANCH_NAME == 'master'){
+            updateGithubCommitStatus(currentBuild)
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          }
         }
       }
     }
     stage('Clean up'){
-        when {
-            branch 'master'
-          }
         steps {
             script {
-                updateGithubCommitStatus(currentBuild)
-                sh './jenkins/scripts/clean-docker.sh'
+                if (ev.BRANCH_NAME == 'master'){
+                    updateGithubCommitStatus(currentBuild)
+                    sh './jenkins/scripts/clean-docker.sh'
+                }
             }
         }
     }
     stage('Deploy'){
-        when {
-                branch 'master'
-              }
         steps{
             script{
-                updateGithubCommitStatus(currentBuild)
-                sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
+                if (ev.BRANCH_NAME == 'master'){
+                    updateGithubCommitStatus(currentBuild)
+                    sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
+                }
             }
         }
     }
