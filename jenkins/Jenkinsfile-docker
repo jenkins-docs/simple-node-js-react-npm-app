@@ -1,6 +1,8 @@
-def getGitBranchName() {
-    return scm.branches[0].name
+def getBranchName(){
+    sh 'git name-rev --name-only HEAD > .git/branch-name'
+    return readFile(".git/branch-name").trim()
 }
+
 def getRepoURL() {
   sh "git config --get remote.origin.url > .git/remote-url"
   return readFile(".git/remote-url").trim()
@@ -30,7 +32,8 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    BRANCH_NAME = getGitBranchName()
+    branch_name = getBranchName()
+    // sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
     CI='true'
   }
   agent any
@@ -39,7 +42,7 @@ pipeline {
     stage('Install') {
        steps {
          updateGithubCommitStatus(currentBuild)
-         echo '$BRANCH_NAME'
+         println branch_name
          sh 'npm install'
        }
     }
