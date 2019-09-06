@@ -32,7 +32,7 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
+    branch_name = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
     CI='true'
   }
   agent any
