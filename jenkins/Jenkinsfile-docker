@@ -41,7 +41,7 @@ pipeline {
     stage('Install') {
        steps {
          updateGithubCommitStatus(currentBuild)
-         echo "$branch_name"
+         println "BRANCH: $branch_name"
          sh 'npm install'
        }
     }
