@@ -1,5 +1,5 @@
 def getBranchName(){
-    sh 'git rev-parse --abbrev-ref HEAD > .git/branch-name'
+    sh 'git name-rev --name-only HEAD > .git/branch-name'
     return readFile(".git/branch-name").trim()
 }
 
@@ -32,7 +32,8 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
+    branch_name = getBranchName()
+    // sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
     CI='true'
   }
   agent any
