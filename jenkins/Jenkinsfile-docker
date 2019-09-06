@@ -32,7 +32,6 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = branch
     CI='true'
   }
   agent any
@@ -41,7 +40,7 @@ pipeline {
     stage('Install') {
        steps {
          updateGithubCommitStatus(currentBuild)
-         echo "$branch_name"
+         echo "$branch"
          sh 'npm install'
        }
     }
