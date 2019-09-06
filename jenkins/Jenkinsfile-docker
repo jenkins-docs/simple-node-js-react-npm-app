@@ -65,8 +65,8 @@ pipeline {
       steps{
         script {
           updateGithubCommitStatus(currentBuild)
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
           sh './jenkins/scripts/clean-docker.sh'
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
           sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
         }
       }
