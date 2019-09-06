@@ -13,7 +13,7 @@ else
 echo "No containers found for cleanup"
 fi
 #removing images
-images=`docker images registry-1.docker.io/aabdelhay/test-app -q`
+images=`docker images aabdelhay/test-app -q`
 if [ ! -z $images ]
 then
 docker rmi -f $(docker images aabdelhay/test-app -q) | exit 0
