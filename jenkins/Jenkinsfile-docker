@@ -2,6 +2,7 @@ def getBranchName(){
     sh 'git rev-parse --abbrev-ref HEAD > .git/branch-name'
     return readFile(".git/branch-name").trim()
 }
+def branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
 def getRepoURL() {
   sh "git config --get remote.origin.url > .git/remote-url"
   return readFile(".git/remote-url").trim()
@@ -31,7 +32,7 @@ pipeline {
     registry = "aabdelhay/test-app"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    branch_name = getBranchName()
+    branch_name = branch
     CI='true'
   }
   agent any
