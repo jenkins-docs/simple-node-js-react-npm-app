@@ -26,6 +26,9 @@ def updateGithubCommitStatus(build) {
   ])
 }
 
+def testIssue= []
+def response = []
+
 pipeline {
 
   environment {
@@ -35,7 +38,7 @@ pipeline {
     branch_name = getBranchName()
     // sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
     CI='true'
-    def response
+
   }
   agent any
   tools {nodejs "node"}
@@ -82,7 +85,7 @@ pipeline {
             updateGithubCommitStatus(currentBuild)
             jiraSendBuildInfo site: 'super-dev.atlassian.net'
             withEnv(['JIRA_SITE=super-dev.atlassian.net']) {
-                  def testIssue = [fields: [ project: [id: '10000'],
+                  testIssue = [fields: [ project: [key: 'SP'],
                                              summary: 'build ($BUILD_NUMBER) failure issue',
                                              description: 'build ($BUILD_NUMBER) failure issue',
                                              issuetype: [id: '3']]]
