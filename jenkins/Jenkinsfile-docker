@@ -87,7 +87,7 @@ pipeline {
                                            // id or name must present for issueType.
                                            issuetype: [name: 'issue']]]
 
-            response = jiraNewIssue issue: testIssue
+            def response = jiraNewIssue issue: testIssue
 
             echo response.successful.toString()
           }
