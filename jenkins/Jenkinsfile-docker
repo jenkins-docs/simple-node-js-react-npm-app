@@ -82,14 +82,15 @@ pipeline {
 
           echo response.successful.toString()
           echo response.data.toString()
-  }
-  post {
-          success {
-            updateGithubCommitStatus(currentBuild)
-          }
-          failure {
-            updateGithubCommitStatus(currentBuild)
-            jiraSendBuildInfo site: 'super-dev.atlassian.net'
-          }
+    }
+      post {
+              success {
+                updateGithubCommitStatus(currentBuild)
+              }
+              failure {
+                updateGithubCommitStatus(currentBuild)
+                jiraSendBuildInfo site: 'super-dev.atlassian.net'
+              }
+      }
   }
 }
