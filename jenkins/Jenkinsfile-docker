@@ -81,16 +81,17 @@ pipeline {
           failure {
             updateGithubCommitStatus(currentBuild)
             jiraSendBuildInfo site: 'super-dev.atlassian.net'
-            def testIssue = [fields: [ // id or key must present for project.
-                                           project: [key: 'super-project'],
-                                           summary: 'build failure issue',
-                                           description: 'build failure issue',
-                                           // id or name must present for issueType.
-                                           issuetype: [name: 'issue']]]
+            withEnv(['JIRA_SITE=super-dev.atlassian.net']) {
+                  def testIssue = [fields: [ project: [id: '10000'],
+                                             summary: 'build ($BUILD_NUMBER) failure issue',
+                                             description: 'build ($BUILD_NUMBER) failure issue',
+                                             issuetype: [id: '3']]]
 
-            response = jiraNewIssue issue: testIssue
+                  response = jiraNewIssue issue: testIssue
 
-            echo response.successful.toString()
+                  echo response.successful.toString()
+                  echo response.data.toString()
+                }
           }
   }
 }
