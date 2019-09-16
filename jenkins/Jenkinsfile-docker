@@ -35,6 +35,7 @@ pipeline {
     branch_name = getBranchName()
     // sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true).trim()
     CI='true'
+    def response
   }
   agent any
   tools {nodejs "node"}
@@ -87,7 +88,7 @@ pipeline {
                                            // id or name must present for issueType.
                                            issuetype: [name: 'issue']]]
 
-            def response = jiraNewIssue issue: testIssue
+            response = jiraNewIssue issue: testIssue
 
             echo response.successful.toString()
           }
