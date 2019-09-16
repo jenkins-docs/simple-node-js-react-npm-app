@@ -73,15 +73,17 @@ pipeline {
       }
     }
     stage('JIRA') {
-          def testIssue = [fields: [ project: [key: 'SP'],
-                                     summary: 'build ($BUILD_NUMBER) failure issue',
-                                     description: 'build ($BUILD_NUMBER) failure issue',
-                                     issuetype: [id: '3']]]
+        steps{
+            def testIssue = [fields: [ project: [key: 'SP'],
+                                                 summary: 'build ($BUILD_NUMBER) failure issue',
+                                                 description: 'build ($BUILD_NUMBER) failure issue',
+                                                 issuetype: [id: '3']]]
 
-          response = jiraNewIssue issue: testIssue
+                      response = jiraNewIssue issue: testIssue
 
-          echo response.successful.toString()
-          echo response.data.toString()
+                      echo response.successful.toString()
+                      echo response.data.toString()
+        }
     }
       post {
               success {
