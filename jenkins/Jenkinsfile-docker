@@ -46,18 +46,33 @@ pipeline {
          println branch_name
          sh 'npm install'
        }
+       post {
+        failure {
+            jiraSendBuildInfo site: 'super-dev.atlassian.net'
+        }
+       }
     }
     stage('Lint') {
       steps {
       updateGithubCommitStatus(currentBuild)
         sh 'npm run lint'
       }
+      post {
+              failure {
+                  jiraSendBuildInfo site: 'super-dev.atlassian.net'
+              }
+             }
     }
     stage('Test') {
       steps {
         updateGithubCommitStatus(currentBuild)
         sh 'npm test'
       }
+      post {
+              failure {
+                  jiraSendBuildInfo site: 'super-dev.atlassian.net'
+              }
+             }
     }
     stage('Build image and Deploy') {
       when {
@@ -71,19 +86,12 @@ pipeline {
           sh 'docker run -d -p 80:80 $registry:$BUILD_NUMBER'
         }
       }
+      post {
+              failure {
+                  jiraSendBuildInfo site: 'super-dev.atlassian.net'
+              }
+             }
     }
-    stage('JIRA') {
-        steps{
-            def testIssue = [fields: [ project: [key: 'SP'],
-                                                 summary: 'build ($BUILD_NUMBER) failure issue',
-                                                 description: 'build ($BUILD_NUMBER) failure issue',
-                                                 issuetype: [id: '3']]]
-
-                      response = jiraNewIssue issue: testIssue
-
-                      echo response.successful.toString()
-                      echo response.data.toString()
-        }
     }
       post {
               success {
@@ -95,4 +103,3 @@ pipeline {
               }
       }
   }
-}
