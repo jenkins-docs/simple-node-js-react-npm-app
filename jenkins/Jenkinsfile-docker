@@ -96,6 +96,8 @@ pipeline {
       post {
               success {
                 updateGithubCommitStatus(currentBuild)
+                jiraSendBuildInfo site: 'super-dev.atlassian.net'
+
               }
               failure {
                 updateGithubCommitStatus(currentBuild)
