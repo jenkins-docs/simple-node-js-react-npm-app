@@ -79,6 +79,17 @@ pipeline {
           }
           failure {
             updateGithubCommitStatus(currentBuild)
+            jiraSendBuildInfo site: 'super-dev.atlassian.net'
+            def testIssue = [fields: [ // id or key must present for project.
+                                           project: [key: 'super-project'],
+                                           summary: 'build failure issue',
+                                           description: 'build failure issue',
+                                           // id or name must present for issueType.
+                                           issuetype: [name: 'issue']]]
+
+            response = jiraNewIssue issue: testIssue
+
+            echo response.successful.toString()
           }
   }
 }
