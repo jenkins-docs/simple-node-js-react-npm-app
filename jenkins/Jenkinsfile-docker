@@ -73,7 +73,6 @@ pipeline {
       }
     }
     stage('JIRA') {
-        withEnv(['JIRA_SITE=super-dev.atlassian.net']) {
           testIssue = [fields: [ project: [key: 'SP'],
                                      summary: 'build ($BUILD_NUMBER) failure issue',
                                      description: 'build ($BUILD_NUMBER) failure issue',
@@ -83,7 +82,6 @@ pipeline {
 
           echo response.successful.toString()
           echo response.data.toString()
-        }
       }
   }
   post {
