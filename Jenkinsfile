@@ -4,9 +4,10 @@ pipeline {
             image 'node:6-alpine'
             args '-p 3000:3000'
         }
-    }environment {
+    }
+    environment {
              CI = 'true'
-         }
+    }
     stages {
         stage('Build') {
             steps {
@@ -14,9 +15,9 @@ pipeline {
             }
         }
         stage('Test') {
-                     steps {
-                         sh './jenkins/scripts/test.sh'
-                     }
-                 }
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
     }
 }
