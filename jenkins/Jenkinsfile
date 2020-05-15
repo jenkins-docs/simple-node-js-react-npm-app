@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'npm build ./simple-node-js-react-npm-app '
             }
         }
         stage('Test') {
