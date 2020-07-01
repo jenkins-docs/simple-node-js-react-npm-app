@@ -1,4 +1,9 @@
+# who is it that tells you I am using a Mac?
 .DS_Store
+
+# lock file
+package-lock.json
+
 # Logs
 logs
 *.log
