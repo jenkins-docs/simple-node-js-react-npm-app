@@ -1,14 +1,28 @@
 pipeline {
     agent {
-        docker {
-            image 'node:6-alpine' 
-            args '-p 3000:3000' 
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: sample-app
+spec:
+  containers:
+  - name: node
+    image: node:6-alpine
+    command:
+    - cat
+    tty: true
+"""
         }
     }
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
+                container('node') {
+                    sh 'npm install'    
+                }
             }
         }
     }
