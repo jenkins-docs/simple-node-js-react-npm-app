@@ -1,0 +1,10 @@
+language: node-js
+node_js:
+  - 14
+
+before_install:
+  - npm install
+
+scripts:
+  - npm test
+  - npm run start
