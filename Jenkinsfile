@@ -1,22 +1,37 @@
 pipeline {
   agent {
     kubernetes {
-      containerTemplate {
-        name 'nodejs'
-        image 'node:12.18.3'
-      }
-
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: some-label-value
+spec:
+  containers:
+  - name: maven
+    image: maven:alpine
+    command:
+    - cat
+    tty: true
+  - name: busybox
+    image: busybox
+    command:
+    - cat
+    tty: true
+"""
     }
-
   }
   stages {
-    stage('NPM Version Check') {
+    stage('Run maven') {
       steps {
-        container('nodejs') {
-          sh 'node --version'
+        container('maven') {
+          sh 'mvn -version'
+        }
+        container('busybox') {
+          sh '/bin/busybox'
         }
       }
     }
-
   }
 }
