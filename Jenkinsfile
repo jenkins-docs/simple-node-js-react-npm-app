@@ -18,10 +18,10 @@ spec:
     stage('NPM Install') {
       steps {
         container('nodejs') {
-          sh 'node --version'
+          sh 'npm ci'
         }
         container('nodejs') {
-          sh 'npm install'
+          sh 'npm run build'
         }
       }
     }
