@@ -15,10 +15,13 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
+    stage('NPM Install') {
       steps {
         container('nodejs') {
           sh 'node --version'
+        }
+        container('nodejs') {
+          sh 'npm install'
         }
       }
     }
