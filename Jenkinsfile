@@ -4,6 +4,9 @@ pipeline {
       yaml """
 apiVersion: v1
 kind: Pod
+metadata:
+labels:
+  component: ci
 spec:
   containers:
   - name: nodejs
@@ -11,17 +14,40 @@ spec:
     command:
     - cat
     tty: true
+  - name: docker
+    image: docker:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
 """
     }
   }
   stages {
-    stage('NPM Install') {
+    stage('NPM install') {
       steps {
         container('nodejs') {
           sh 'npm ci'
         }
+      }
+    }
+    stage('Build Zensurance mono repo') {
+      steps {
         container('nodejs') {
           sh 'npm run build'
+        }
+      }
+    }
+    stage('Build Docker Images') {
+      steps {
+        container('docker') {
+          sh 'docker build -t zen-api:pr-$BUILD_NUMBER -f ./Dockerfile.app'
         }
       }
     }
