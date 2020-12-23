@@ -1,15 +1,20 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine' 
-            args '-p 3000:3000' 
-        }
+podTemplate(
+  label: 'jenkins-pipeline', 
+  inheritFrom: 'default',
+  containers: [
+    containerTemplate(name: 'node-builder', image: 'alexsuch/angular-cli:1.6.1', command: 'cat', ttyEnabled: true)
+  ]
+) {
+  node ('jenkins-pipeline') {
+    stage ('Get Latest') {
+      checkout scm
     }
-    stages {
-        stage('Build') { 
-            steps {
-                sh 'npm install' 
-            }
-        }
+
+    stage ('Build') {
+      container ('ng') {
+        sh "npm install"
+        sh "ng build"
+      }
     }
+  } // end node
 }
