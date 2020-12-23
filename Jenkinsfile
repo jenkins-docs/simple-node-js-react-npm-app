@@ -1,14 +1,23 @@
 podTemplate(
-  label: 'jenkins-pipeline', 
+  label: 'zenbuild', 
   inheritFrom: 'default',
   containers: [
     containerTemplate(name: 'node-builder', image: 'alexsuch/angular-cli:1.6.1', command: 'cat', ttyEnabled: true)
   ])
 {
-  node ('jenkins-pipeline')
-  {
-    stage ('CHECKOUT FROM REPO') {
-      checkout scm
+  node ('zenbuild') {
+    stages {
+      stage ('Checkout') {
+        checkout scm
+      }
+      
+      stage('Build') {
+        container('node-builder') {
+          steps {
+            sh 'npm install'
+          }
+        }
+      }
     }
   }
 }
