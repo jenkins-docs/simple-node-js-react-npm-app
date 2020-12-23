@@ -10,9 +10,11 @@ pipeline {
 
   }
   stages {
-    stage('NPM install') {
+    stage('NPM Version Check') {
       steps {
-        sh 'npm install'
+        container('nodejs') {
+          sh 'node --version'
+        }
       }
     }
 
