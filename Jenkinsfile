@@ -1,22 +1,18 @@
 pipeline {
   agent {
-    docker {
-      image 'node:12-alpine'
+    kubernetes {
+      //cloud 'kubernetes'
+      containerTemplate {
+        name 'nodejs'
+        image 'node:12.18.3'
+      }
     }
-
   }
   stages {
-    stage('CHECK OUT') {
+    stage('NPM install') {
       steps {
-        sh 'checkout scm'
+        sh 'npm install'
       }
     }
-
-    stage('build') {
-      steps {
-        sh 'sh npm install'
-      }
-    }
-
   }
 }
