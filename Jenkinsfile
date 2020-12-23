@@ -6,14 +6,9 @@ podTemplate(
   ]
 ) {
   node ('jenkins-pipeline') {
-    stage ('Get Latest') {
-      checkout scm
-    }
-
     stage ('Build') {
       container ('ng') {
         sh "npm install"
-        sh "ng build"
       }
     }
   } // end node
