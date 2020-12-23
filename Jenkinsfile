@@ -2,7 +2,7 @@ podTemplate(
   label: 'zenbuild', 
   inheritFrom: 'default',
   containers: [
-    containerTemplate(name: 'node-builder', image: 'alexsuch/angular-cli:1.6.1', command: 'cat', ttyEnabled: true)
+    containerTemplate(name: 'node-builder', image: 'node:6-alpine', command: 'cat', ttyEnabled: true)
   ])
 {
   node ('zenbuild') {
