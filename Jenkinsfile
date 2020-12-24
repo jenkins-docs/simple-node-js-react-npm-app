@@ -1,64 +1,46 @@
 pipeline {
-  agent {
-    kubernetes {
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  containers:
-  - name: nodejs
-    image: node:12.18.3
-    command:
-    - cat
-    tty: true
-  - name: docker
-    image: docker:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-"""
-    }
+  agent any
+ 
+  tools {nodejs "node-12.18.4"}
+
+  environment {
+    CI = 'true'
   }
+
   stages {
-    stage('NPM install') {
+    stage('Git Checkout') {
       steps {
-        container('nodejs') {
+        git 'https://github.com/tamv/simple-node-js-react-npm-app.git'
+      }
+    }
+    
+    stage('Install NPM') {
+      steps {
           sh 'npm ci'
-        }
       }
     }
-    stage('Build Zensurance mono repo') {
-      steps {
-        container('nodejs') {
-          sh 'npm run build'
-        }
-      }
-    }
-    stage('Build Docker Images') {
+
+    stage('Build & Test') {
       parallel {
-        stage('Build App Docker Img') {
+        stage('Build web application') {
           steps {
-            container('docker') {
-              sh 'docker build -t zen-app:pr-$BUILD_NUMBER -f ./Dockerfile.app'
-            }
+            sh 'npm run build'
           }
         }
-        stage('Build API Docker Img') {
+        stage('run test') {
           steps {
-            container('docker') {
-              sh 'docker build -t zen-api:pr-$BUILD_NUMBER -f ./Dockerfile.app'
-            }
+            sh 'npm run test'
           }
+        }
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        echo 'build app docker image'
+
+        script {
+          docker.build("zen-app:${env.BUILD_ID}", "-f Dockerfile.app")
         }
       }
     }
