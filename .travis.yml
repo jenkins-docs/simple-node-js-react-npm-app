@@ -10,4 +10,11 @@ jobs:
       name: "build application"
       script: npm run build
     - name: "run test"
+      install: npm install && npm install codecov -g
       script: npm run test
+      after_success: bash <(curl -s https://codecov.io/bash)
+
+    - stage: "build docker iamges"
+      name: "build zen-app images"
+      script:
+      - docker build -t "zen-app:demo" -f Dockerfile.app
