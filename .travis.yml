@@ -17,4 +17,4 @@ jobs:
     - stage: "build docker iamges"
       name: "build zen-app images"
       script:
-      - docker build -t "zen-app:demo" -f Dockerfile.app
+      - docker build -t zen-app-demo
