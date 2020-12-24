@@ -6,9 +6,12 @@ git:
   depth: 0
   quite: true
 
-services:
-  - docker
-
 install: npm ci
 
 jobs:
+  include:
+    - stage: "build & test"
+      name: "build application"
+      script: npm run build
+    - name: "run test"
+      script: npm run test
