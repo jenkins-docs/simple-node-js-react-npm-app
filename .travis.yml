@@ -19,5 +19,6 @@ jobs:
     - stage: "build docker iamges"
       name: "build zen-app images"
       script:
+      - npm run build
       - docker build -t zen-app-demo .
       - docker images
