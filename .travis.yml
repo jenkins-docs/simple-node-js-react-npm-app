@@ -1,3 +1,14 @@
 language: node_js
 node_js:
   - "12.18.3"
+
+git:
+  depth: 0
+  quite: true
+
+services:
+  - docker
+
+install: npm ci
+
+jobs:
