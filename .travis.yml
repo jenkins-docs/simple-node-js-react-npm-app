@@ -1,4 +1,6 @@
 language: node_js
+dist: trusty
+
 node_js:
   - "12.18.3"
 
@@ -17,4 +19,5 @@ jobs:
     - stage: "build docker iamges"
       name: "build zen-app images"
       script:
-      - docker build -t zen-app-demo
+      - docker build -t zen-app-demo .
+      - docker images
