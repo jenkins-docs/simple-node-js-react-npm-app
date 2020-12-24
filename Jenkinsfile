@@ -45,9 +45,20 @@ spec:
       }
     }
     stage('Build Docker Images') {
-      steps {
-        container('docker') {
-          sh 'docker build -t zen-api:pr-$BUILD_NUMBER -f ./Dockerfile.app'
+      parallel {
+        stage('Build App Docker Img') {
+          steps {
+            container('docker') {
+              sh 'docker build -t zen-app:pr-$BUILD_NUMBER -f ./Dockerfile.app'
+            }
+          }
+        }
+        stage('Build API Docker Img') {
+          steps {
+            container('docker') {
+              sh 'docker build -t zen-api:pr-$BUILD_NUMBER -f ./Dockerfile.app'
+            }
+          }
         }
       }
     }
