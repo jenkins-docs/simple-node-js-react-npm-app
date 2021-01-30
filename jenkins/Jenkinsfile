@@ -9,6 +9,7 @@ node('master'){
         CI = 'true'
     }
     stage('Build') {
+        sh 'apt install nodejs'
         sh 'npm install'
     }
     stage('Test') {
