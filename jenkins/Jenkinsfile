@@ -10,9 +10,11 @@ node('master'){
     }
     stage('Build') {
         sh 'npm install'
+        sh 'npm run build'
     }
     stage('Test') {
         sh 'echo "This stage would be for testing."'
+        sh 'npm run test'
     }
     stage('Deliver') {
         sh './jenkins/scripts/deliver.sh'
