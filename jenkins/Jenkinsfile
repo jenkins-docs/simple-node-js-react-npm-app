@@ -12,7 +12,7 @@ node('master'){
         sh 'npm install'
     }
     stage('Test') {
-        sh './jenkins/scripts/test.sh'
+        sh 'echo "This stage would be for testing."'
     }
     stage('Deliver') {
         sh './jenkins/scripts/deliver.sh'
