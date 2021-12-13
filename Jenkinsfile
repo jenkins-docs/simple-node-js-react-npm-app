@@ -1,11 +1,7 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:lts-buster-slim'
-      args '-p 3000:3000'
-      args '-u root:root'
-    }
-
+  agent any
+  tools (nodeJs "node")
+  
   }
       environment {
         CI = 'true'
