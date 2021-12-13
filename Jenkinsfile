@@ -15,6 +15,7 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'echo "hello world" '
+        sh 'echo "new step added 2" '
         sh 'echo "new step added" '
         sh "echo "new step added for webhook" '
         sh 'npm install'
