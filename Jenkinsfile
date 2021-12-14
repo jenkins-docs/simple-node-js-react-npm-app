@@ -17,6 +17,7 @@ pipeline {
         sh 'echo "hello world" '
         sh 'echo "new step added 2" '
          sh 'echo "new step added 3" '
+        sh 'echo "new step added 4" '
         sh 'echo "new step added" '
         sh 'echo "new step added for webhook" '
         sh 'echo "npm install"'
