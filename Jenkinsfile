@@ -20,7 +20,7 @@ pipeline {
         sh 'echo "new step added 4" '
         sh 'echo "new step added" '
         sh 'echo "new step added for webhook" '
-        sh 'echo "npm install"'
+        sh 'npm install'
       }
     }
      stage('Test') { 
