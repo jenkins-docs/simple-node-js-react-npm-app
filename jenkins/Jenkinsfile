@@ -1,14 +1,13 @@
+// Declarative //
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
     stages {
+
+        stage('Checkout') {
+            steps {
+            git credentialsId: 'Github_Auth', url: 'https://github.com/jenkins-docs/simple-node-js-react-npm-app.git', branch: 'main'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'npm install'
@@ -28,3 +27,4 @@ pipeline {
         }
     }
 }
+// Script //
