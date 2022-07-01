@@ -7,6 +7,10 @@
   height: 80px;
 }
 
+.MySpan {
+  text-decoration-color: red;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
