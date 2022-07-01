@@ -8,7 +8,8 @@
 }
 
 .MySpan {
-  text-decoration-color: red;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .App-header {
