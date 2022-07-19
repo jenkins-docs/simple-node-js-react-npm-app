@@ -16,7 +16,8 @@ pipeline {
         }
         stage('Lint'){
             steps{
-                sh 'npm run eslint'
+                sh 'npm install -g jshint'
+                sh '/jenkins/Jenkinsfile/jshint-script.sh'
             }
         }
         }
