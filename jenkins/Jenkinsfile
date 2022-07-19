@@ -14,5 +14,10 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
+        stage('Lint'){
+            steps{
+                sh 'npm run lint'
+            }
+        }
         }
 }
