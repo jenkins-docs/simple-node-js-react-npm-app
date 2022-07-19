@@ -18,7 +18,6 @@ pipeline {
             steps{
                 sh 'npm install -g jshint'
                 sh 'chmod u+x ./jenkins/scripts/jshint-script.sh'
-                //sh './jenkins/scripts/jshint-script.sh'
             }
         }
         }
