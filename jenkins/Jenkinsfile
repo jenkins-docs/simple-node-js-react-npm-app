@@ -17,7 +17,7 @@ pipeline {
         stage('Lint'){
             steps{
                 sh 'npm install -g jshint'
-                sh '/jshint-script.sh'
+                sh '/JShint/jshint-script.sh'
             }
         }
         }
