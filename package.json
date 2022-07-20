@@ -7,11 +7,14 @@
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3"
   },
+  "devDependencies": {
+    "eslint": "^8.20.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ./"
   }
 }
