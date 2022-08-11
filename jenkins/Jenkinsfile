@@ -1,13 +1,37 @@
 pipeline {
-  agent any
+    agent any
+         tools {nodejs "NODEJS"} 
+    
 
-  tools {nodejs "nodejs"}
+     
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+          
+         
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
 
-  stages {
-    stage('Example') {
-      steps {
-        sh 'npm config ls'
-      }
-    }
-  }
+        stage('SonarQube Analysis'){
+            steps {
+                script{
+                def scannerHome = tool 'sonarqube';
+                withSonarQubeEnv('sonarqube'){
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -D sonar.login=admin \
+                        -D sonar.password=admin \
+                        -D sonar.projectKey=samplekey \
+                        -D sonar.host.url=http://localhost:9000/"
+                }
+                }
+            }
+        }
 }
+}
+
