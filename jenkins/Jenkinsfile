@@ -11,19 +11,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bash 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
-                bash './test.sh'
+                bat './test.sh'
             }
         }
         stage('Deliver') {
             steps {
-                bash './deliver.sh'
+                bat './deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                bash './kill.sh'
+                bat './kill.sh'
             }
         }
     }
