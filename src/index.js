@@ -12,3 +12,9 @@ AWS.config = new AWS.Config();
 AWS.config.accessKeyId = "AKIAIOSFODNN7EXAMPLE";
 AWS.config.secretAccessKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
 AWS.config.region = "us-east-1";
+
+
+AWS.config = new AWS.Config();
+AWS.config.accessKeyId = "AKIAIOSFODNN7EXAMPLE";
+AWS.config.secretAccessKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+AWS.config.region = "us-east-1";
