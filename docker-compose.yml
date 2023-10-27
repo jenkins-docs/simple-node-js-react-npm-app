@@ -11,7 +11,6 @@ services:
       - "8080:8080"
       - "50000:50000"
       - "8443:8443"
-      - "3000:3000"
 #    environment:
 #      - DOCKER_HOST=tcp://host.docker.internal:2375
     volumes:
