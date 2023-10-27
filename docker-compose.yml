@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+
+  jenkins:
+#    image: jenkins/jenkins:lts
+#    privileged: true
+#    user: root
+    build: .
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+      - "8443:8443"
+      - "3000:3000"
+#    environment:
+#      - DOCKER_HOST=tcp://host.docker.internal:2375
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins_dind
+
+  jenkins_agent:
+    image: jenkins/ssh-agent:jdk11
+    privileged: true
+    user: root
+    container_name: jenkins_agent
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4hmftOsZjk5T3Iw0Jb58m03XFrRT0b5R6N3S+kInPVKIEWWy4IvbAF/CVjRwAEgfyW+o1W8eXxNlFRn8pbWE1yjxBC2R++Ay6TLp+FY8IerFEsYKysSpDMakp1lWoUHIhhLW9E4VGEKIFc9R0brS47S4y/NgkhEWO4S4z1wJHEjvoZer1AI+BlaqRyJiwVtpZdljx0fGwrPsMPS8wP1jpJC3b64mzsovdh5lmzPvsRnDAvHgpME2e6CV708/vvqYYCjm9AloUxN/eqCkb7BYy2f2deqCKIe56rrmtkMsAyl2cBOE9oK/RS8YN7uEG2aIEcvD95dxjd9RFJ9uT6F2F+rRmfCWFw2pMBiQSvneIuXVousDJroouCf7VEOrmRCRFfOmWGQ3EJSzbXz6VgN3ymHhvmlgo7eqL4D967uxf4a1JKT0vhArrlJ8TrQ6LseB9E7zdQ6WioZe0fsQjxrRJJR84anUStqU9xEzeYhY5r3F5hndHRerg9r2dcl2awGU= aligntech\t.sai@BOM-8MS7SQ3
+    networks:
+      - jenkins_dind
+
+networks:
+  jenkins_dind:
+    driver: bridge
