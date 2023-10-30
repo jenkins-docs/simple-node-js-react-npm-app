@@ -31,6 +31,47 @@ services:
     networks:
       - jenkins_dind
 
+  postgres:
+    image: postgis/postgis
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data-db:/data/db
+    networks:
+      - jenkins_dind
+
+  parse:
+    image: parseplatform/parse-server:5.2.3
+    ports:
+      - 1337:1337
+    links:
+      - postgres
+    environment:
+      - PARSE_SERVER_APPLICATION_ID=mudumbai
+      - PARSE_SERVER_MASTER_KEY=mudumbai@mk3456
+      - PARSE_SERVER_DATABASE_URI=postgres://postgres:password@postgres/postgres
+    networks:
+      - jenkins_dind
+
+  dashboard:
+    image: parseplatform/parse-dashboard:4.1.0
+    ports:
+      - 4040:4040
+    environment:
+      - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+      - PARSE_DASHBOARD_APP_ID=mudumbai
+      - PARSE_DASHBOARD_MASTER_KEY=mudumbai@mk3456
+      - PARSE_DASHBOARD_APP_NAME=NCP
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+      - PARSE_DASHBOARD_USER_ID=User
+      - PARSE_DASHBOARD_USER_PASSWORD=Connect@1
+    networks:
+      - jenkins_dind
+
 networks:
   jenkins_dind:
     driver: bridge

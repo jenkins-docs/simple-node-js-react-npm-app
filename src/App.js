@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './assets/styles/styles.scss'
+import QuestionnaireForm from "./components/Questionnaire/QuestionnaireForm";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import Login from "./components/Auth/Login";
 
-class App extends Component {
-  render() {
+function App() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route path={'/login'} render={props=><Login/>} />
+                    <Route path={'/questionnaire'} render={props=><QuestionnaireForm/>}/>
+                    <Redirect from="/" to="/questionnaire"/>
+                </Switch>
+            </BrowserRouter>
     );
-  }
 }
 
 export default App;
