@@ -1,0 +1,127 @@
+/* Sidebar.css */
+
+.sidebar {
+  margin:0px 0px 0px 0px;
+  background-color: #fff; /* Set the background color to white */
+  box-shadow: 1px 1px 3px 3px #efefef;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #000; /* Set the text color to black */
+  width: 280px;
+  position: fixed; /* Fix the sidebar's position */
+  height: 100%; /* Set the height to 100% of the viewport height */
+  left: 0; /* Position it on the left side of the screen */
+  top: 0; /* Position it at the top of the screen */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds the viewport height */
+  .sidebar-top{
+    padding:15px;
+    background-color: rgba(25, 25, 227, 0.84);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    span{
+      color:white;
+    }
+    .box-image{
+      display: flex;
+      height: 40px;
+      align-items: center;
+      background-color: rgba(107, 107, 107, 0.61);
+      padding:10px;
+      border-radius: 8px;
+    }
+    .sidebar-text{
+      display:flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  hr{
+    margin:0px;
+    border-width: 1.5px;
+    border-color: #b6b3b3;
+  }
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+
+}
+
+.sidebar li {
+  padding: 10px 18px;
+  color: #595858;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  height: auto;
+  font-size: 14px;
+  width:100%;
+  .i{
+    color:gray;
+
+  }
+
+}
+
+.sidebar li.active {
+  background-color: #F3F5F7;
+  color: #846EC3;
+  .i{
+    background-color: #846EC3;
+  }
+}
+.button-actions{
+  padding:10px 15px 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  .btn-submit{
+    background-color: #FFFFFF;
+    border: 1px solid blue;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: blue;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    padding: 2px 15px 2px 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+    user-select: none;
+    &:focus-visible {
+      box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+      transition: box-shadow .2s;
+    }
+    &:active {
+      background-color: #F7F7F7;
+      border-color: #000000;
+      transform: scale(.96);
+    }
+    &:hover {
+      background-color: #F7F7F7;
+      border-color: #000000;
+      transform: scale(.96);
+    }
+
+  }
+  select {
+    padding:3px;
+    width: 28%;
+    font-size: 12px;
+    background-color: #fff;
+    border: none;
+    color: blue;
+    cursor: pointer;
+  }
+
+}
