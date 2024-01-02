@@ -2,9 +2,6 @@ pipeline {
     agent {
         dockerContainer {
             image 'node:lts-buster-slim'
-            connector {
-                dockerPortMappings([[containerPort: 3000, hostPort: 3000, protocol: 'tcp']])
-            }
         }
     }
     environment {
