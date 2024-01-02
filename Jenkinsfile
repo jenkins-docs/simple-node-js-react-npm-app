@@ -1,8 +1,12 @@
 pipeline {
     agent {
         kubernetes {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3000'
+            containerTemplate {
+                name 'maven'
+                image 'node:lts-buster-slim'
+                command 'sleep'
+                args '-p 3000:3000'
+            }
         }
     }
     environment {
