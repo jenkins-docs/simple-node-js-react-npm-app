@@ -1,0 +1,43 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: sh './jenkins/scripts/test.sh'
+
+  test:
+    needs: [build]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: sh './jenkins/scripts/test.sh'
+
+  deliver:
+    needs: [test]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deliver
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: sh './jenkins/scripts/deliver.sh'
+      - run: sh './jenkins/scripts/kill.sh'
