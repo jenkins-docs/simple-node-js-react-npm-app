@@ -3,7 +3,7 @@ pipeline {
         dockerContainer {
             image 'node:lts-buster-slim'
             connector {
-                dockerPortMappings([[$class: 'DockerPortMapping', containerPort: 3000, hostPort: 3000, protocol: 'tcp']])
+                dockerPortMappings([[class: 'DockerPortMapping', containerPort: 3000, hostPort: 3000, protocol: 'tcp']])
             }
         }
     }
