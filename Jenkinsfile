@@ -1,8 +1,22 @@
 pipeline {
     agent {
-        dockerContainer {
-            image 'node:lts-buster-slim'
-        }
+    kubernetes {
+    yaml '''
+        apiVersion: v1
+        kind: Pod
+        metadata:
+            labels:
+                some-label: some-label-value
+        spec:
+            containers:
+            - name: node
+            image: node:lts-buster-slim
+            command:
+            - cat
+            tty: true
+    '''
+    retries 2
+    }
     }
     environment {
         CI = 'true'
@@ -10,19 +24,25 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                container('node') {
+                    sh 'npm install'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                container('node') {
+                    sh './jenkins/scripts/test.sh'
+                }
             }
         }
         stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                container('node') {
+                    sh './jenkins/scripts/deliver.sh'
+                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
+                }
             }
         }
     }
