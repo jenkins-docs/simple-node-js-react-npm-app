@@ -23,4 +23,15 @@ pipeline {
             }
         }
     }
+    post {
+    success {
+        echo 'The build was successful please merge'
+    }
+    failure {
+        echo 'The build failed'
+    }
+    always {
+        cleanWs()
+        }
+    }
 }
