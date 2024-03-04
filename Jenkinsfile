@@ -10,8 +10,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-        
-                sh ./deliver.sh
+                sh 'chmod +x ./deliver.sh'
+                 sh 'chmod +x deliver.sh'
+                sh './deliver.sh'
             }
          }
         stage('Deliver') {
