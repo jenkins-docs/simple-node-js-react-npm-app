@@ -16,10 +16,29 @@ pipeline {
                 sh './deliver.sh'
             }
          }
+        stage('Get Last Commit Details') {
+            steps {
+                script{
+                    List<String> changes = getChangedFilesList()
+                    println ("Changed file list: " + changes)
+                }
+            }
+        }
         stage('Deliver') {
             steps {
                 echo "done now"
             }
         }
     }
+}
+
+@NonCPS
+List<String> getChangedFilesList(){
+    def changedFiles = []
+    for ( changeLogSet in currentBuild.changeSets){
+        for (entry in changeLogSet.getItems()){
+            changedFiles.addAll(entry.affectedPaths)
+        }
+    }
+    return changedFiles
 }
