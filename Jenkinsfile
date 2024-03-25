@@ -9,7 +9,7 @@ pipeline {
             }
         }
         stage('Test') {
-            when{ changeset "./jenkins/scripts/**"}
+            when{ changeset "*/jenkins/scripts/**"}
             steps {
                 sh 'chmod +x ./deliver.sh'
                  sh 'chmod +x deliver.sh'
