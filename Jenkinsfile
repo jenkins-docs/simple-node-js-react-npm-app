@@ -9,10 +9,6 @@ pipeline {
         NX_CLOUD = "${params.USE_NX_CLOUD}"
     }
 
-    triggers {
-        pollSCM('H/5 * * * *') // checks for changes every 5 minutes
-    }
-
     stages {
         stage('Checkout') {
             steps {
