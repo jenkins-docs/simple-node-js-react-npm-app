@@ -1,27 +1,45 @@
 pipeline {
     agent any
-     tools { 
-        nodejs 'node' 
+    
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Select a Git Branch to trigger CI')
+        booleanParam(name: 'USE_NX_CLOUD', defaultValue: false, description: 'Use Nx Cloud to build')
     }
+
+    environment {
+        NX_CLOUD = "${params.USE_NX_CLOUD}"
+    }
+
+    triggers {
+        pollSCM('* * * * *')
+    }
+
     stages {
-        stage('Build') { 
+        stage('Checkout') {
             steps {
-                sh 'npm install' 
+                git branch: "${params.BRANCH}", url: 'https://github.com/your-repo/your-repo.git'
             }
         }
 
-        stage('Test') {
+        stage('Build') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                script {
+                    if (env.NX_CLOUD.toBoolean()) {
+                        sh 'echo Building with Nx Cloud...'
+                        // Add your build commands here
+                    } else {
+                        sh 'echo Building without Nx Cloud...'
+                        // Add your build commands here
+                    }
+                }
             }
         }
+    }
 
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
-            }
+    post {
+        always {
+            echo 'Cleaning up...'
+            // Add any cleanup commands here
         }
     }
 }
