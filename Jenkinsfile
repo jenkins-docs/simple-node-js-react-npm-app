@@ -16,6 +16,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sh 'printenv'
                 git branch: "${env.BRANCH_NAME}", url: 'https://github.com/roy94bit/simple-node-js-react-npm-app.git'
                 echo "Building branch: ${env.BRANCH_NAME}"
             }
