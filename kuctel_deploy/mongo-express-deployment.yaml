@@ -1,0 +1,38 @@
+# mongo-express-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - name: mongo-express
+        image: mongo-express:latest
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          value: ati
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          value: ati1234
+        - name: ME_CONFIG_MONGODB_SERVER
+          value: mongo
+        ports:
+        - containerPort: 8081
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express
+spec:
+  ports:
+    - port: 8081
+  selector:
+    app: mongo-express
