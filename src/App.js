@@ -7,12 +7,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+	  <h1> Simple Node JS React NPM App</h1>
+	    <p>Packages used: react, NodeJS, server</p>
+	    <button onClick={() => window.location.href='http://localhost:3000/job/{YOUR_JENKINS_JOB_NAME}/build'}>Build Project</button>
+          
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }

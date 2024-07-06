@@ -1,30 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
+
     stages {
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                sh 'npm run build'
             }
         }
-        stage('Deliver') {
+        stage('Serve') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+                sh 'npx serve -s build -l 3004'
             }
         }
     }
 }
+
