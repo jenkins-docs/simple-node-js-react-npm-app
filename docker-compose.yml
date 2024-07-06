@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: localhost:5000/postgres:latest
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: localhost:5000/redis:latest
+    ports:
+      - "6379:6379"
+
+  mongo:
+    image: localhost:5000/mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ati
+      MONGO_INITDB_ROOT_PASSWORD: ati1234
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: localhost:5000/mongo-express:latest
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ati
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ati1234
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
