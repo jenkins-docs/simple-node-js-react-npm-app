@@ -42,9 +42,14 @@ pipeline {
                  subject: "Failed pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"
         }
+        /*
+        Cleaning the workspace will delete all test reports,
+        bringing a failure result to the pipeline.
+        Therefore, I commented out this step. 
         cleanup {
             echo 'Cleaning the workspace'
             cleanWs()
         }
+        */
     }
 }
