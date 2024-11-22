@@ -6,9 +6,6 @@ pipeline {
         }
     }
     stages {
-        stage('Clean Workspace'){
-            cleanWs()
-        }
         stage('Build') { 
             steps {
                 sh 'npm install' 
