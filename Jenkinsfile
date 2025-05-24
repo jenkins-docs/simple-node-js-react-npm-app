@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        nodejs 'NodeJS-18'
+        nodejs 'NodeJS-24'
     }
     
     environment {
@@ -30,8 +30,50 @@ pipeline {
                 sh '''
                     node --version
                     npm --version
-                    npm ci --only=production
+                    npm ci
                 '''
+            }
+        }
+        
+        stage('Code Quality & Security') {
+            parallel {
+                stage('Lint') {
+                    steps {
+                        echo 'Running ESLint...'
+                        sh 'npm run lint || true'
+                    }
+                }
+                stage('Security Audit') {
+                    steps {
+                        echo 'Running security audit...'
+                        sh 'npm audit --audit-level moderate || true'
+                    }
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh '''
+                    # Run tests with coverage
+                    npm test -- --coverage --watchAll=false --testResultsProcessor=jest-junit
+                '''
+            }
+            post {
+                always {
+                    // Publish test results
+                    publishTestResults testResultsPattern: 'junit.xml'
+                    // Publish coverage reports
+                    publishHTML([
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'coverage/lcov-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Coverage Report'
+                    ])
+                }
             }
         }
         
