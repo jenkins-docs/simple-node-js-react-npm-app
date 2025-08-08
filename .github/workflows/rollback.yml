@@ -22,3 +22,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd simple-node-js-react-npm-app
+            COMMIT_HASH="${{ github.event.inputs.commit_hash }}"
+            echo "Resetting to specific commit $COMMIT_HASH..."
+            git reset --hard $COMMIT_HASH
