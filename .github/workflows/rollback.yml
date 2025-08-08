@@ -1,0 +1,24 @@
+name: Rollback testing
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_hash:
+        description: 'Commit hash to rollback to'
+        required: true
+        default: ''
+    # Only allow running this from the development branch button will only appear when the development branch is selected
+
+jobs:
+  rollback-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and deploy for frontend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd simple-node-js-react-npm-app
