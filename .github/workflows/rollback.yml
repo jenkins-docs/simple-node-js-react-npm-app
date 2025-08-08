@@ -11,7 +11,7 @@ on:
 
 jobs:
   rollback-backend:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: SSH and deploy for frontend
         uses: appleboy/ssh-action@master
