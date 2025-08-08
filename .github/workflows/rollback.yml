@@ -11,7 +11,7 @@ on:
 
 jobs:
   rollback-backend:
-    if: github.ref == 'refs/heads/support'
+    if: github.ref == 'refs/heads/dev'
     runs-on: self-hosted
     steps:
       - name: SSH and deploy for frontend
