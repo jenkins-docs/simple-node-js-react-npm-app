@@ -1,0 +1,22 @@
+name: sms-frontend workflow
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: SSH and deploy for frontend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd simple-node-js-react-npm-app
+            git pull https://${{ secrets.USERNAME_GIT }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/annas-whizpool/simple-node-js-react-npm-app.git dev
+            ls -la
