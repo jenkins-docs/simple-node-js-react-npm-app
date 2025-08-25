@@ -29,6 +29,7 @@ pipeline {
     }
     failure {
         echo 'The build failed'
+        echo 'Please check the logs'
     }
     always {
         cleanWs()
