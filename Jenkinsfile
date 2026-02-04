@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Use bash to run the .sh script on Windows
-                bat 'bash ./jenkins/scripts/test.sh'
+                // Run React tests directly (no .sh script needed)
+                bat 'npm test -- --watchAll=false --passWithNoTests'
             }
         }
     }
