@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 echo 'The following "npm" command builds your Node.js/React application for'
-echo 'production in the local "build" directory, correctly bundles React in'
-echo 'production mode and optimizes the build for the best performance.'
+echo 'production in the local "build" directory using Vite, correctly bundles'
+echo 'React in production mode and optimizes the build for the best performance.'
 set -x
 npm run build
 set +x
